@@ -10,6 +10,10 @@
 		4B8810122B63F9790059936F /* ProtectedData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8810092B63F9790059936F /* ProtectedData.framework */; };
 		4B8810172B63F9790059936F /* ProtectedDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8810162B63F9790059936F /* ProtectedDataTests.swift */; };
 		4B8810182B63F9790059936F /* ProtectedData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B88100C2B63F9790059936F /* ProtectedData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B8810222B63F9A80059936F /* Safety.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8810212B63F9A80059936F /* Safety.swift */; };
+		4B8810242B63FB7B0059936F /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8810232B63FB7B0059936F /* UserDefaults.swift */; };
+		4B8810262B6404D40059936F /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8810252B6404D40059936F /* Error.swift */; };
+		4B8810282B640D5A0059936F /* SafetyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8810272B640D5A0059936F /* SafetyTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +31,10 @@
 		4B88100C2B63F9790059936F /* ProtectedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProtectedData.h; sourceTree = "<group>"; };
 		4B8810112B63F9790059936F /* ProtectedDataTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProtectedDataTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B8810162B63F9790059936F /* ProtectedDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectedDataTests.swift; sourceTree = "<group>"; };
+		4B8810212B63F9A80059936F /* Safety.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safety.swift; sourceTree = "<group>"; };
+		4B8810232B63FB7B0059936F /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		4B8810252B6404D40059936F /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		4B8810272B640D5A0059936F /* SafetyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +78,9 @@
 			isa = PBXGroup;
 			children = (
 				4B88100C2B63F9790059936F /* ProtectedData.h */,
+				4B8810212B63F9A80059936F /* Safety.swift */,
+				4B8810232B63FB7B0059936F /* UserDefaults.swift */,
+				4B8810252B6404D40059936F /* Error.swift */,
 			);
 			path = ProtectedData;
 			sourceTree = "<group>";
@@ -78,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				4B8810162B63F9790059936F /* ProtectedDataTests.swift */,
+				4B8810272B640D5A0059936F /* SafetyTests.swift */,
 			);
 			path = ProtectedDataTests;
 			sourceTree = "<group>";
@@ -144,6 +156,7 @@
 				TargetAttributes = {
 					4B8810082B63F9790059936F = {
 						CreatedOnToolsVersion = 15.1;
+						LastSwiftMigration = 1510;
 					};
 					4B8810102B63F9790059936F = {
 						CreatedOnToolsVersion = 15.1;
@@ -191,6 +204,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B8810242B63FB7B0059936F /* UserDefaults.swift in Sources */,
+				4B8810262B6404D40059936F /* Error.swift in Sources */,
+				4B8810222B63F9A80059936F /* Safety.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B8810172B63F9790059936F /* ProtectedDataTests.swift in Sources */,
+				4B8810282B640D5A0059936F /* SafetyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +353,7 @@
 		4B88101C2B63F9790059936F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -347,7 +365,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -356,7 +374,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -366,6 +384,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -374,6 +393,7 @@
 		4B88101D2B63F9790059936F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -385,7 +405,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -394,7 +414,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -412,6 +432,7 @@
 		4B88101F2B63F9790059936F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J8X2939834;
@@ -432,6 +453,7 @@
 		4B8810202B63F9790059936F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J8X2939834;

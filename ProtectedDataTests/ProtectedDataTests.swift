@@ -1,36 +1,61 @@
-//
-//  ProtectedDataTests.swift
-//  ProtectedDataTests
-//
-//  Created by 공채운 on 1/26/24.
-//
-
 import XCTest
+import Combine
 @testable import ProtectedData
 
 class ProtectedDataTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+  var sut: UserDefaults!
+  
+  override func setUpWithError() throws {
+    sut = UserDefaults.standard
+  }
+  
+  override func tearDownWithError() throws {
+    sut.dictionaryRepresentation().keys.forEach { key in
+      sut.removeObject(forKey: key)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
+  }
+  func testSetAndGetAndRemoveObject() async throws {
+    let key = "object"
+    let saveValue = 1
+    try await sut.safe.set(saveValue, forKey: key)
+    let value = try await sut.safe.object(forKey: key) as? Int
+    XCTAssertEqual(value, saveValue)
+    
+    try await sut.safe.removeObject(forKey: key)
+    let remove = try await sut.safe.object(forKey: key)
+    XCTAssertNil(remove)
+  }
+  
+  func testSetAndGetString() async throws {
+    let key = "string"
+    let saveValue = "1"
+    try await sut.safe.set(saveValue, forKey: key)
+    let value = try await sut.safe.string(forKey: key)
+    XCTAssertEqual(value, saveValue)
+  }
+  
+  func testSetAndGetInteger() async throws {
+    let key = "int"
+    let saveValue = 1
+    try await sut.safe.set(saveValue, forKey: key)
+    let value = try await sut.safe.integer(forKey: key)
+    XCTAssertEqual(value, saveValue)
+  }
+  
+  func testSetAndGetArray() async throws {
+    let key = "array"
+    let saveValue = [1,2,3]
+    try await sut.safe.set(saveValue, forKey: key)
+    let value = try await sut.safe.array(forKey: key) as? [Int]
+    XCTAssertEqual(value, saveValue)
+  }
+  
+  func testSetAndGetDictionary() async throws {
+    let key = "dict"
+    let saveValue = ["x": "y"]
+    try await sut.safe.set(saveValue, forKey: key)
+    let value = try await sut.safe.dictionary(forKey: key)
+    XCTAssertEqual(value?["x"] as? String, saveValue["x"])
+    XCTAssertEqual(value?.count, saveValue.count)
+  }
 }
