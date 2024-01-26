@@ -2,7 +2,7 @@ import XCTest
 import Combine
 @testable import ProtectedData
 
-class ProtectedDataTests: XCTestCase {
+class UserDefaultsTests: XCTestCase {
   var sut: UserDefaults!
   
   override func setUpWithError() throws {

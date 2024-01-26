@@ -17,18 +17,21 @@ final class SafetyTests: XCTestCase {
   }
   
   func testProtectedDataAvailable_GivenFalse_WhenProtectedDataAvailable_ThenReturnTrue() async throws {
-    let safety = Safety(base, notificationCenter: notificationCenter, protectedDataAvailable: false)
+    let safety = Safety(base, notificationCenter: notificationCenter, protectedDataAvailable: { false })
     
     let expected = true
-    let actual = await safety.protectedDataAvailable(timeout: 1_000)
     
-    await notificationCenter.post(name: UIApplication.protectedDataDidBecomeAvailableNotification, object: nil)
+    let name = await UIApplication.protectedDataDidBecomeAvailableNotification
+    Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+      self.notificationCenter.post(name: name, object: nil)
+    }.fire()
+    let actual = await safety.protectedDataAvailable(timeout: 1_000)
     
     XCTAssertEqual(expected, actual)
   }
   
   func testProtectedDataAvailable_GivenFalse_WhenProtectedDataNotAvailableUntilTimeout_ThenReturnFalse() async throws {
-    let safety = Safety(base, notificationCenter: notificationCenter, protectedDataAvailable: false)
+    let safety = Safety(base, notificationCenter: notificationCenter, protectedDataAvailable: { false })
     
     let expected = false
     let actual = await safety.protectedDataAvailable(timeout: 1)
@@ -37,7 +40,7 @@ final class SafetyTests: XCTestCase {
   }
   
   func testProtectedDataAvailable_GivenTrue_ThenReturnTrue() async throws {
-    let safety = Safety(base, notificationCenter: notificationCenter, protectedDataAvailable: true)
+    let safety = Safety(base, notificationCenter: notificationCenter, protectedDataAvailable: { true })
     
     let expected = true
     let actual = await safety.protectedDataAvailable(timeout: 1)
@@ -46,7 +49,7 @@ final class SafetyTests: XCTestCase {
   }
   
   func testProtectedDataAvailable_GivenTrue_WhenProtectedDataWillBecomeAvailableBeforeCall_ThenReturnFalse() async throws {
-    let safety = Safety(base, notificationCenter: notificationCenter, protectedDataAvailable: true)
+    let safety = Safety(base, notificationCenter: notificationCenter, protectedDataAvailable: { true })
     
     await notificationCenter.post(name: UIApplication.protectedDataWillBecomeUnavailableNotification, object: nil)
     

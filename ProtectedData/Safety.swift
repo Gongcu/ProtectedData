@@ -6,26 +6,28 @@ private let checkValueIntervalInNanoseconds: UInt64 = UInt64(0.2 * 1_000 * 1_000
 public class Safety<Base> {
   let base: Base
   private let notificationCenter: NotificationCenter
-  private let protectedDataAvailableSubject: CurrentValueSubject<Bool, Never>
+  private let protectedDataAvailable: () -> Bool
+  private lazy var protectedDataAvailableSubject: CurrentValueSubject<Bool, Never> = {
+    DispatchQueue.main.sync {
+      return CurrentValueSubject<Bool, Never>(protectedDataAvailable())
+    }
+  }()
   
   init(
     _ base: Base,
     notificationCenter: NotificationCenter = NotificationCenter.default,
-    protectedDataAvailable: Bool = UIApplication.shared.isProtectedDataAvailable
+    protectedDataAvailable: @escaping () -> Bool = { UIApplication.shared.isProtectedDataAvailable }
   ) {
     self.base = base
     self.notificationCenter = notificationCenter
-    self.protectedDataAvailableSubject = CurrentValueSubject<Bool, Never>(protectedDataAvailable)
-    notificationCenter.addObserver(self, selector: #selector(onAvailable), name: UIApplication.protectedDataDidBecomeAvailableNotification, object: nil)
-    
-    notificationCenter.addObserver(self, selector: #selector(onUnavailable), name: UIApplication.protectedDataWillBecomeUnavailableNotification, object: nil)
+    self.protectedDataAvailable = protectedDataAvailable
+    observeProtectedDataStateChanges()
   }
   
   func protectedDataAvailable(timeout seconds: Double) async -> Bool {
     guard !protectedDataAvailableSubject.value else { return true }
     let current = Date()
-    while !protectedDataAvailableSubject.value, current <= current.addingTimeInterval(seconds) {
-      print(protectedDataAvailableSubject.value)
+    while !protectedDataAvailableSubject.value, Date() <= current.addingTimeInterval(seconds) {
       do {
         try await Task.sleep(nanoseconds: checkValueIntervalInNanoseconds)
       } catch {
@@ -34,6 +36,12 @@ public class Safety<Base> {
     }
  
     return protectedDataAvailableSubject.value
+  }
+  
+  private func observeProtectedDataStateChanges() {
+    notificationCenter.addObserver(self, selector: #selector(onAvailable), name: UIApplication.protectedDataDidBecomeAvailableNotification, object: nil)
+    
+    notificationCenter.addObserver(self, selector: #selector(onUnavailable), name: UIApplication.protectedDataWillBecomeUnavailableNotification, object: nil)
   }
   
   @objc
