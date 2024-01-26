@@ -52,6 +52,7 @@
 		4B8810332B640F0E0059936F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B8810352B640F0E0059936F /* ProtectedDataTestApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProtectedDataTestApp.entitlements; sourceTree = "<group>"; };
 		4B8810372B640F0E0059936F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4B8810422B6417340059936F /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +84,7 @@
 		4B880FFF2B63F9790059936F = {
 			isa = PBXGroup;
 			children = (
+				4B8810422B6417340059936F /* Package.swift */,
 				4B88100B2B63F9790059936F /* ProtectedData */,
 				4B8810152B63F9790059936F /* ProtectedDataTests */,
 				4B88102E2B640F0C0059936F /* ProtectedDataTestApp */,
