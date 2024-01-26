@@ -1,6 +1,8 @@
 import UIKit
 import Combine
 
+private let checkValueIntervalInNanoseconds: UInt64 = UInt64(0.2 * 1_000 * 1_000 * 1_000)
+
 public class Safety<Base> {
   let base: Base
   private let notificationCenter: NotificationCenter
@@ -25,7 +27,7 @@ public class Safety<Base> {
     while !protectedDataAvailableSubject.value, current <= current.addingTimeInterval(seconds) {
       print(protectedDataAvailableSubject.value)
       do {
-        try await Task.sleep(nanoseconds: UInt64(0.2 * 1_000 * 1_000 * 1_000))
+        try await Task.sleep(nanoseconds: checkValueIntervalInNanoseconds)
       } catch {
         return protectedDataAvailableSubject.value
       }
